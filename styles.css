@@ -1,0 +1,78 @@
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: rgb(43, 43, 43);
+  font-family: "Noto Sans", sans-serif;
+}
+#box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 100px;
+}
+#screen {
+  background-color: #8f8f8f;
+  width: 100%;
+  margin: 20px 4px;
+  padding: 40px;
+  border-radius: 10px;
+}
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(53, 53, 53);
+  padding: 0 20px;
+  padding-bottom: 20px;
+  margin: 200px;
+  border-radius: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.btn__calc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(66, 66, 66);
+  color: rgb(180, 180, 180);
+  font-weight: 600;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  margin: 4px;
+  padding: 10px 30px;
+  border-radius: 6px;
+  font-size: 18px;
+}
+.btn__calc:hover {
+  background-color: rgb(80, 80, 80);
+  transform: scale(0.95);
+}
+.btn__calc:active {
+  transform: scale(0.85);
+}
+.ac {
+  background-color: rgb(44, 44, 44);
+}
+.equal {
+  background-color: rgb(99, 99, 99);
+}
+.operator {
+  background-color: rgb(189, 9, 9);
+}
+.operator:hover {
+  background-color: rgb(202, 9, 9);
+}
+.button__row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+button {
+  cursor: pointer;
+}
