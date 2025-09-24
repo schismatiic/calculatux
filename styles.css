@@ -5,6 +5,9 @@
   box-sizing: border-box;
 }
 body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgb(43, 43, 43);
   font-family: "Noto Sans", sans-serif;
 }
@@ -12,7 +15,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 100px;
+  width: 100vh;
+  margin-top: 60px;
 }
 #screen {
   background-color: #8f8f8f;
@@ -29,9 +33,37 @@ body {
   background-color: rgb(53, 53, 53);
   padding: 0 20px;
   padding-bottom: 20px;
-  margin: 200px;
   border-radius: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+#logo {
+  width: 100%;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(180, 180, 180);
+}
+#tux {
+  cursor: pointer;
+  margin-right: 2px;
+}
+#tux:hover {
+  transform: scale(0.95);
+}
+#tux:active {
+  transform: scale(0.85);
+}
+.tux__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#logo span {
+  color: rgb(180, 180, 180);
+  font-weight: 900;
 }
 .btn__calc {
   display: flex;
@@ -56,10 +88,16 @@ body {
   transform: scale(0.85);
 }
 .ac {
+  background-color: rgb(37, 37, 37);
+}
+.ac:hover {
   background-color: rgb(44, 44, 44);
 }
 .equal {
   background-color: rgb(99, 99, 99);
+}
+.equal:hover {
+  background-color: rgb(110, 110, 110);
 }
 .operator {
   background-color: rgb(189, 9, 9);
