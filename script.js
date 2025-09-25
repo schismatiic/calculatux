@@ -31,6 +31,7 @@ const ac = () => {
 };
 // const num1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 // const num2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 const operators = ["+", "-", "*", "/", "√x", "^"];
 const display = document.getElementById("display");
 const operation = document.getElementById("operation");
@@ -43,12 +44,15 @@ acButton.addEventListener("click", () => {
 });
 // =============================
 const calculator = () => {
+  let array1 = [];
+  let array2 = [];
   for (let index = 0; index <= 9; index++) {
     let numberButtons = document.getElementById(`${index}`);
     const equalButton = document.getElementById("equal__button");
     numberButtons.addEventListener("click", () => {
-      display.textContent = `${index}`;
-      const num1 = parseInt(`${index}`);
+      array1.push(`${index}`);
+      let num1 = parseInt(array1.join(""));
+      display.textContent = `${num1}`;
       for (let i = 0; i < 6; i++) {
         const operatorButtons = document.getElementById(`${operators[i]}`);
         operatorButtons.addEventListener("click", () => {
