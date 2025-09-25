@@ -69,10 +69,15 @@ body {
   background-color: #8f8f8f;
   width: 100%;
   margin: 20px 4px;
-  padding: 40px;
+  padding: 30px;
   border-radius: 10px;
   color: black;
   font-weight: 700;
+}
+#operation {
+  text-align: end;
+  font-size: 12px;
+  color: #8f8f8f;
 }
 #display {
   text-align: end;
