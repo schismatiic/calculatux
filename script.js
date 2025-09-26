@@ -26,10 +26,11 @@ const operate = (a, b, operator) => {
       break;
   }
 };
-
 const operators = ["+", "-", "*", "/", "√x", "^"];
 const display = document.getElementById("display");
 const operation = document.getElementById("operation");
+const equalButton = document.getElementById("equal__button");
+
 // ========= AC Button =========
 const acButton = document.getElementById("ac__button");
 acButton.addEventListener("click", () => {
@@ -39,48 +40,50 @@ acButton.addEventListener("click", () => {
 });
 // =============================
 const calculator = () => {
+  let num1;
+  let num2;
   let array1 = [];
   let array2 = [];
+
   for (let index = 0; index <= 9; index++) {
     // ========= First number =========
     let numberButtons = document.getElementById(`${index}`);
-    const equalButton = document.getElementById("equal__button");
     numberButtons.addEventListener("click", () => {
       array1.push(index);
-      let num1 = array1.join("");
+      num1 = array1.join("");
       display.textContent = `${num1}`;
-      // ========= Operator =========
-      for (let i = 0; i < 6; i++) {
-        const operatorButtons = document.getElementById(`${operators[i]}`);
-        operatorButtons.addEventListener("click", () => {
-          const operator = `${operators[i]}`;
-          if (`${operator}` === "√x") {
-            operation.textContent = `√(${num1}) =`;
-            operation.style.cssText = "color: black; font-weight: 400";
-            display.textContent = `√(${num1})`;
-            equalButton.addEventListener("click", () => {
-              operation.style.cssText = "color: black; font-weight: 400";
-              display.textContent = `${squareRoot(num1)}`;
-            });
-          } else {
-            display.textContent = `${num1} ${operator}`;
-            // ========= Second number =========
-            for (let j = 0; j <= 9; j++) {
-              let numberButtons2 = document.getElementById(`${j}`);
-              numberButtons2.addEventListener("click", () => {
-                array2.push(j);
-                let num2 = array2.join("");
-                display.textContent = `${num1} ${operator} ${num2}`;
-                equalButton.addEventListener("click", () => {
-                  const result = operate(num1, num2, operator);
-                  operation.textContent = `${num1} ${operator} ${num2} =`;
-                  operation.style.cssText = "color: black; font-weight: 400";
-                  display.textContent = `${result}`;
-                });
-              });
-            }
-          }
+    });
+  }
+  // ========= Operator =========
+  for (let i = 0; i < 6; i++) {
+    const operatorButtons = document.getElementById(`${operators[i]}`);
+    operatorButtons.addEventListener("click", () => {
+      const operator = `${operators[i]}`;
+      if (`${operator}` === "√x") {
+        display.textContent = `√(${num1})`;
+        equalButton.addEventListener("click", () => {
+          operation.textContent = `√(${num1}) =`;
+          operation.style.cssText = "color: black; font-weight: 400";
+          display.textContent = `${squareRoot(num1)}`;
         });
+      } else {
+        display.textContent = `${num1} ${operator}`;
+        // ========= Second number =========
+        for (let j = 0; j <= 9; j++) {
+          let numberButtons2 = document.getElementById(`${j}`);
+          numberButtons2.addEventListener("click", () => {
+            array2.push(j);
+            num2 = array2.join("");
+            num1 = (num1 - num2) / 10 ** array2.length;
+            display.textContent = `${num1} ${operator} ${num2}`;
+            equalButton.addEventListener("click", () => {
+              const result = operate(num1, num2, operator);
+              operation.textContent = `${num1} ${operator} ${num2} =`;
+              operation.style.cssText = "color: black; font-weight: 400";
+              display.textContent = `${result}`;
+            });
+          });
+        }
       }
     });
   }
