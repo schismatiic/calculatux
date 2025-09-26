@@ -30,7 +30,7 @@ const operators = ["+", "-", "*", "/", "√x", "^"];
 const display = document.getElementById("display");
 const operation = document.getElementById("operation");
 const equalButton = document.getElementById("equal__button");
-
+let result;
 // ========= AC Button =========
 const acButton = document.getElementById("ac__button");
 acButton.addEventListener("click", () => {
@@ -39,26 +39,27 @@ acButton.addEventListener("click", () => {
   calculator();
 });
 // =============================
-const calculator = () => {
-  let num1;
+const calculator = (num1 = 0) => {
   let num2;
   let array1 = [];
   let array2 = [];
-
-  for (let index = 0; index <= 9; index++) {
-    // ========= First number =========
-    let numberButtons = document.getElementById(`${index}`);
-    numberButtons.addEventListener("click", () => {
-      array1.push(index);
-      num1 = array1.join("");
-      display.textContent = `${num1}`;
-    });
+  if (num1 !== result) {
+    for (let index = 0; index <= 9; index++) {
+      // ========= First number =========
+      let numberButtons = document.getElementById(`${index}`);
+      numberButtons.addEventListener("click", () => {
+        array1.push(index);
+        num1 = array1.join("");
+        display.textContent = `${num1}`;
+      });
+    }
   }
+
   // ========= Operator =========
   for (let i = 0; i < 6; i++) {
     const operatorButtons = document.getElementById(`${operators[i]}`);
     operatorButtons.addEventListener("click", () => {
-      const operator = `${operators[i]}`;
+      const operator = operators[i];
       if (`${operator}` === "√x") {
         display.textContent = `√(${num1})`;
         equalButton.addEventListener("click", () => {
@@ -73,14 +74,17 @@ const calculator = () => {
           let numberButtons2 = document.getElementById(`${j}`);
           numberButtons2.addEventListener("click", () => {
             array2.push(j);
-            num2 = array2.join("");
-            num1 = (num1 - num2) / 10 ** array2.length;
+            num2 = parseInt(array2.join(""));
+            if (num1 !== result) {
+              num1 = (num1 - num2) / 10 ** array2.length;
+            }
             display.textContent = `${num1} ${operator} ${num2}`;
             equalButton.addEventListener("click", () => {
-              const result = operate(num1, num2, operator);
+              result = operate(num1, num2, operator);
               operation.textContent = `${num1} ${operator} ${num2} =`;
               operation.style.cssText = "color: black; font-weight: 400";
               display.textContent = `${result}`;
+              calculator(result);
             });
           });
         }
