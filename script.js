@@ -31,6 +31,10 @@ const display = document.getElementById("display");
 const operation = document.getElementById("operation");
 const equalButton = document.getElementById("equal__button");
 let result;
+const tux = document.getElementById("tux");
+tux.addEventListener("click", () => {
+  tux.src = "https://media.tenor.com/S61VCO73mOAAAAAj/linux-tux.gif";
+});
 // ========= AC Button =========
 const acButton = document.getElementById("ac__button");
 acButton.addEventListener("click", () => {
@@ -79,13 +83,17 @@ const calculator = (num1 = 0) => {
               num1 = (num1 - num2) / 10 ** array2.length;
             }
             display.textContent = `${num1} ${operator} ${num2}`;
-            equalButton.addEventListener("click", () => {
-              result = operate(num1, num2, operator);
-              operation.textContent = `${num1} ${operator} ${num2} =`;
-              operation.style.cssText = "color: black; font-weight: 400";
-              display.textContent = `${result}`;
-              calculator(result);
-            });
+            equalButton.addEventListener(
+              "click",
+              () => {
+                result = operate(num1, num2, operator);
+                operation.textContent = `${num1} ${operator} ${num2} =`;
+                operation.style.cssText = "color: black; font-weight: 400";
+                display.textContent = `${result}`;
+                calculator(result);
+              },
+              { passive: true }
+            );
           });
         }
       }
