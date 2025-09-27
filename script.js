@@ -31,6 +31,7 @@ const display = document.getElementById("display");
 const operation = document.getElementById("operation");
 const equalButton = document.getElementById("equal__button");
 let result;
+let operator2;
 const tux = document.getElementById("tux");
 tux.addEventListener("click", () => {
   tux.src = "https://media.tenor.com/S61VCO73mOAAAAAj/linux-tux.gif";
@@ -43,7 +44,9 @@ acButton.addEventListener("click", () => {
   calculator();
 });
 // =============================
-const calculator = (num1 = 0) => {
+const calculator = (num1 = 0, operator2) => {
+  console.log(operator2);
+
   let num2;
   let array1 = [];
   let array2 = [];
@@ -58,7 +61,49 @@ const calculator = (num1 = 0) => {
       });
     }
   }
-
+  // ========= This will execute if the user enter a second operator before = =========
+  if (operator2 !== undefined) {
+    display.textContent = `${num1} ${operator2}`;
+    for (let j = 0; j <= 9; j++) {
+      let numberButtons2 = document.getElementById(`${j}`);
+      numberButtons2.addEventListener("click", () => {
+        array2.push(j);
+        num2 = parseInt(array2.join(""));
+        if (operator2 === "/" && num2 === 0) {
+          display.textContent = "You are a bad person";
+          result = num1;
+          calculator(result);
+        }
+        if (num1 !== result && operator2 === undefined) {
+          num1 = (num1 - num2) / 10 ** array2.length;
+        }
+        display.textContent = `${num1} ${operator2} ${num2}`;
+        for (let x = 0; x < 6; x++) {
+          const operatorButtons2 = document.getElementById(`${operators[x]}`);
+          operatorButtons2.addEventListener("click", () => {
+            operator2 = operators[x];
+            result = operate(num1, num2, operator2);
+            operation.textContent = `${num1} ${operator} ${num2} =`;
+            operation.style.cssText = "color: black; font-weight: 400";
+            display.textContent = `${result}`;
+            console.log(operator2);
+            calculator(result, operator2);
+          });
+        }
+        equalButton.addEventListener(
+          "click",
+          () => {
+            result = operate(num1, num2, operator2);
+            operation.textContent = `${num1} ${operator2} ${num2} =`;
+            operation.style.cssText = "color: black; font-weight: 400";
+            display.textContent = `${result}`;
+            calculator(result);
+          },
+          { passive: true }
+        );
+      });
+    }
+  }
   // ========= Operator =========
   for (let i = 0; i < 6; i++) {
     const operatorButtons = document.getElementById(`${operators[i]}`);
@@ -83,14 +128,40 @@ const calculator = (num1 = 0) => {
               num1 = (num1 - num2) / 10 ** array2.length;
             }
             display.textContent = `${num1} ${operator} ${num2}`;
+            for (let x = 0; x < 6; x++) {
+              const operatorButtons2 = document.getElementById(
+                `${operators[x]}`
+              );
+              operatorButtons2.addEventListener("click", () => {
+                if (operator === "/" && num2 === 0) {
+                  display.textContent = "You are a bad person";
+                  result = num1;
+                  calculator(result);
+                } else {
+                  operator2 = operators[x];
+                  result = operate(num1, num2, operator);
+                  operation.textContent = `${num1} ${operator} ${num2} =`;
+                  operation.style.cssText = "color: black; font-weight: 400";
+                  display.textContent = `${result}`;
+                  console.log(operator2);
+                  calculator(result, operator2);
+                }
+              });
+            }
             equalButton.addEventListener(
               "click",
               () => {
-                result = operate(num1, num2, operator);
-                operation.textContent = `${num1} ${operator} ${num2} =`;
-                operation.style.cssText = "color: black; font-weight: 400";
-                display.textContent = `${result}`;
-                calculator(result);
+                if (operator === "/" && num2 === 0) {
+                  display.textContent = "You are a bad person";
+                  result = num1;
+                  calculator(result);
+                } else {
+                  result = operate(num1, num2, operator);
+                  operation.textContent = `${num1} ${operator} ${num2} =`;
+                  operation.style.cssText = "color: black; font-weight: 400";
+                  display.textContent = `${result}`;
+                  calculator(result);
+                }
               },
               { passive: true }
             );
