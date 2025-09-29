@@ -59,7 +59,11 @@ const calculator = (num1 = 0, operator2) => {
     if (array1 !== undefined && num2 === undefined) {
       array1.pop();
       num1 = array1.join("");
-      display.textContent = `${num1}`;
+      if (array1.length > 0) {
+        display.textContent = `${num1}`;
+      } else {
+        display.textContent = 0;
+      }
       verify = 0;
     }
   });
