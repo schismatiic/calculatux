@@ -110,10 +110,12 @@ body {
 .btn__calc:active {
   transform: scale(0.85);
 }
-.ac {
+.ac,
+#backspace {
   background-color: rgb(37, 37, 37);
 }
-.ac:hover {
+.ac,
+#backspace:hover {
   background-color: rgb(44, 44, 44);
 }
 .equal {

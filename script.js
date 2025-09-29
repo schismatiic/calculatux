@@ -30,8 +30,11 @@ const operators = ["+", "-", "*", "/", "√x", "^"];
 const display = document.getElementById("display");
 const operation = document.getElementById("operation");
 const equalButton = document.getElementById("equal__button");
+const backspace = document.getElementById("backspace");
+
 let result;
 let operator2;
+let verify = 0;
 const tux = document.getElementById("tux");
 tux.addEventListener("click", () => {
   tux.src = "https://media.tenor.com/S61VCO73mOAAAAAj/linux-tux.gif";
@@ -39,17 +42,27 @@ tux.addEventListener("click", () => {
 // ========= AC Button =========
 const acButton = document.getElementById("ac__button");
 acButton.addEventListener("click", () => {
+  result;
+  operator2;
   operation.style.cssText = "color: #8f8f8f; font-weight: 400";
   display.textContent = 0;
+  verify++;
   calculator();
 });
 // =============================
 const calculator = (num1 = 0, operator2) => {
-  console.log(operator2);
-
   let num2;
   let array1 = [];
   let array2 = [];
+  // ========= Backspace num1 =========
+  backspace.addEventListener("click", () => {
+    if (array1 !== undefined && num2 === undefined) {
+      array1.pop();
+      num1 = array1.join("");
+      display.textContent = `${num1}`;
+      verify = 0;
+    }
+  });
   if (num1 !== result) {
     for (let index = 0; index <= 9; index++) {
       // ========= First number =========
@@ -73,6 +86,7 @@ const calculator = (num1 = 0, operator2) => {
           display.textContent = "You are a bad person";
           result = num1;
           calculator(result);
+          console.log(1);
         }
         if (num1 !== result && operator2 === undefined) {
           num1 = (num1 - num2) / 10 ** array2.length;
@@ -88,6 +102,7 @@ const calculator = (num1 = 0, operator2) => {
             display.textContent = `${result}`;
             console.log(operator2);
             calculator(result, operator2);
+            console.log(2);
           });
         }
         equalButton.addEventListener(
@@ -98,6 +113,7 @@ const calculator = (num1 = 0, operator2) => {
             operation.style.cssText = "color: black; font-weight: 400";
             display.textContent = `${result}`;
             calculator(result);
+            console.log(3);
           },
           { passive: true }
         );
@@ -108,7 +124,7 @@ const calculator = (num1 = 0, operator2) => {
   for (let i = 0; i < 6; i++) {
     const operatorButtons = document.getElementById(`${operators[i]}`);
     operatorButtons.addEventListener("click", () => {
-      const operator = operators[i];
+      let operator = operators[i];
       if (`${operator}` === "√x") {
         display.textContent = `√(${num1})`;
         equalButton.addEventListener("click", () => {
@@ -137,7 +153,8 @@ const calculator = (num1 = 0, operator2) => {
                   display.textContent = "You are a bad person";
                   result = num1;
                   calculator(result);
-                } else {
+                  console.log(4);
+                } else if (verify === 0) {
                   operator2 = operators[x];
                   result = operate(num1, num2, operator);
                   operation.textContent = `${num1} ${operator} ${num2} =`;
@@ -145,6 +162,7 @@ const calculator = (num1 = 0, operator2) => {
                   display.textContent = `${result}`;
                   console.log(operator2);
                   calculator(result, operator2);
+                  console.log(5);
                 }
               });
             }
@@ -155,12 +173,14 @@ const calculator = (num1 = 0, operator2) => {
                   display.textContent = "You are a bad person";
                   result = num1;
                   calculator(result);
+                  console.log(6);
                 } else {
                   result = operate(num1, num2, operator);
                   operation.textContent = `${num1} ${operator} ${num2} =`;
                   operation.style.cssText = "color: black; font-weight: 400";
                   display.textContent = `${result}`;
                   calculator(result);
+                  console.log(7);
                 }
               },
               { passive: true }
