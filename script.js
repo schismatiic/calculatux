@@ -31,7 +31,8 @@ const display = document.getElementById("display");
 const operation = document.getElementById("operation");
 const equalButton = document.getElementById("equal__button");
 const backspace = document.getElementById("backspace");
-
+const backspace2 = document.getElementById("backspace");
+const dot = document.getElementById("dot");
 let result;
 let operator2;
 let verify = 0;
@@ -65,6 +66,22 @@ const calculator = (num1 = 0, operator2) => {
         display.textContent = 0;
       }
       verify = 0;
+    } else {
+      if (array2.length > 0) {
+        array2.pop();
+        array1.pop();
+        num2 = array2.join("");
+        console.log(num2);
+        display.textContent = `${num1} + ${num2}`;
+      } else {
+        display.textContent = `${num1} + 0`;
+      }
+    }
+  });
+  dot.addEventListener("click", () => {
+    if (array1.length < 2) {
+      array1.push(".");
+      display.textContent = `${num1}.`;
     }
   });
   if (num1 !== result) {
@@ -144,7 +161,9 @@ const calculator = (num1 = 0, operator2) => {
           numberButtons2.addEventListener("click", () => {
             array2.push(j);
             num2 = parseInt(array2.join(""));
-            if (num1 !== result) {
+            if (num1 !== result && array1.find((element) => element === ".")) {
+              // num1 = (num1 - num2) / 10 ** array2.length + 1;
+            } else if (num1 !== result) {
               num1 = (num1 - num2) / 10 ** array2.length;
             }
             display.textContent = `${num1} ${operator} ${num2}`;
