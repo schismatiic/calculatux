@@ -78,9 +78,11 @@ const calculator = (num1 = 0, operator2) => {
       }
     }
   });
+  // ========= Dot number =========
   dot.addEventListener("click", () => {
     if (array1.length < 2) {
       array1.push(".");
+      num1 = parseInt(array1.join(""));
       display.textContent = `${num1}.`;
     }
   });
@@ -162,7 +164,7 @@ const calculator = (num1 = 0, operator2) => {
             array2.push(j);
             num2 = parseInt(array2.join(""));
             if (num1 !== result && array1.find((element) => element === ".")) {
-              // num1 = (num1 - num2) / 10 ** array2.length + 1;
+              num1 = num1 - num2 / 10 ** (array2.length + 1);
             } else if (num1 !== result) {
               num1 = (num1 - num2) / 10 ** array2.length;
             }
